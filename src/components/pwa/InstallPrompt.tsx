@@ -13,12 +13,22 @@ export const InstallPrompt: React.FC = () => {
     // Check if already installed
     setInstalled(isInstalled());
     
-    // Check if installable (only show if not installed)
-    if (!isInstalled()) {
+    // Check if we're in secure context
+    const isSecureContext = window.isSecureContext || 
+      window.location.protocol === 'https:' || 
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1';
+
+    // Check if installable (only show if not installed and secure context)
+    if (!isInstalled() && isSecureContext) {
       // Delay showing prompt a bit
       const timer = setTimeout(() => {
         if (isInstallable()) {
           setShowPrompt(true);
+        } else {
+          // If not installable via beforeinstallprompt, show manual install instructions
+          // This happens when accessing via IP address (not HTTPS)
+          console.log('PWA install prompt not available - may need HTTPS');
         }
       }, 3000);
       

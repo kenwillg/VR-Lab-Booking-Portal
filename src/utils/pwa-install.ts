@@ -10,11 +10,24 @@ export interface BeforeInstallPromptEvent extends Event {
 let deferredPrompt: BeforeInstallPromptEvent | null = null;
 
 export const registerPWAInstall = () => {
+  // Check if we're in a secure context (HTTPS or localhost)
+  const isSecureContext = window.isSecureContext || 
+    window.location.protocol === 'https:' || 
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1';
+
+  if (!isSecureContext) {
+    console.warn('PWA install requires HTTPS (or localhost)');
+    return;
+  }
+
   window.addEventListener('beforeinstallprompt', (e) => {
     // Prevent the mini-infobar from appearing on mobile
     e.preventDefault();
     // Stash the event so it can be triggered later
     deferredPrompt = e as BeforeInstallPromptEvent;
+    
+    console.log('PWA install prompt available');
     
     // Show custom install button/prompt
     const installButton = document.getElementById('pwa-install-button');

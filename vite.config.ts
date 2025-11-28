@@ -85,13 +85,29 @@ export default defineConfig({
       },
       devOptions: {
         enabled: true,
-        type: 'module'
+        type: 'module',
+        navigateFallback: 'index.html'
       }
     })
   ],
   server: {
     port: 3000,
-    open: true
+    open: true,
+    host: true // Allow external connections
+  },
+  preview: {
+    port: 4173,
+    host: true, // Allow external connections
+    strictPort: false,
+    // Allow ngrok hosts - pattern '.ngrok-free.app' allows all subdomains
+    // You can also add specific domain: '4349e6acf4ef.ngrok-free.app'
+    allowedHosts: [
+      'localhost',
+      '.ngrok.io',
+      '.ngrok-free.app', // This allows all *.ngrok-free.app subdomains
+      '.ngrok.app',
+      '4349e6acf4ef.ngrok-free.app' // Your specific ngrok domain
+    ]
   }
 })
 
