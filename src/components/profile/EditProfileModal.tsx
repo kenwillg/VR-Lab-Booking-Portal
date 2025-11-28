@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { UserProfile, UpdateProfileRequest } from '../../services/api';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';

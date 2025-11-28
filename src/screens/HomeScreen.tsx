@@ -47,7 +47,10 @@ export const HomeScreen: React.FC = () => {
     const results = await Promise.all(availabilityPromises);
     const map: Record<string, { status: 'available' | 'booked' | 'full', text: string }> = {};
     results.forEach((result) => {
-      map[result.id] = { status: result.status, text: result.text };
+      map[result.id] = { 
+        status: result.status as 'available' | 'booked' | 'full', 
+        text: result.text 
+      };
     });
     setAvailabilityMap(map);
   }, [facilities]);

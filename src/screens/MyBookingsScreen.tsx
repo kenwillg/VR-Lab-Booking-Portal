@@ -6,7 +6,6 @@ import { Button } from '../components/ui/Button';
 import { useBookings } from '../hooks/useBookings';
 import { bookingsApi } from '../services/api';
 import { getRelativeDate } from '../utils/dateUtils';
-import { Booking } from '../services/api';
 
 export const MyBookingsScreen: React.FC = () => {
   const location = useLocation();

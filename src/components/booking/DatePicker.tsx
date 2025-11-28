@@ -57,7 +57,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   const isDateDisabled = (date: Date): boolean => {
-    const dateStr = formatDateString(date);
     date.setHours(0, 0, 0, 0);
     
     if (date < minDate) return true;
